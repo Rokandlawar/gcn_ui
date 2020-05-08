@@ -1,0 +1,91 @@
+<samlp:Response xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol" 
+    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion" Destination="https://www.billerpayments.com/ssoauth/saml/cust/soadotgcnpa" ID="_040d633463024fa0a89bb228bea25e3c" IssueInstant="2020-05-02T15:17:14Z" Version="2.0">
+    <saml:Issuer Format="urn:oasis:names:tc:SAML:2.0:nameid-format:entity">https://development.delasoft.com/OACSAZDOTExternal</saml:Issuer>
+    <samlp:Status>
+        <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
+    </samlp:Status>
+    <saml:Assertion ID="_242bd613-bcd8-492a-9d45-481ce38c8710" IssueInstant="2020-05-02T15:22:14.974Z" Version="2.0" 
+        xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion">
+        <saml:Issuer>https://development.delasoft.com/OACSAZDOTExternal</saml:Issuer>
+        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <SignedInfo>
+                <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                <SignatureMethod Algorithm="RS256" />
+                <Reference URI="#_242bd613-bcd8-492a-9d45-481ce38c8710">
+                    <Transforms>
+                        <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+                        <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" />
+                    </Transforms>
+                    <DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" />
+                    <DigestValue>bSbHdes7hKd1cnlymFoKp687cWAZMfHtJe5M+Ul+3nw=</DigestValue>
+                </Reference>
+            </SignedInfo>
+            <SignatureValue>QuzqENm/A2cTpBDGaReTE7vcER4OSJgBrYhIpkCtzEpu1UMxmAF0uKLbggwTJluLwNSgNM5uTFAGcoijD5PRMumKcakBw/jtFq+X62NX8Esh7/UbdC+MQsYScQQajQwwqRvcr3My8lGRrMmm1ulGX/LPdWm6tgoqNaJCherVC37+dY0kM1p3E2VMMVsElcg536s5oRzxIqC8jh2EFMiLToPKfx/W/GzCSrrUiX0zAcFs59sBpJE9JHT15gBO1WpatfvnIDtrnlpor6C0qGy8YnIUnvdGUlSuSPBDAqH0Kqniq1SeX3FtlNBEUkLsdQvK6ZfINFsR4mioMNCwEqd6Cw==</SignatureValue>
+            <KeyInfo>
+                <KeyValue>
+                    <RSAKeyValue>
+                        <Modulus>0Nf7Zm/DE4eiYHgmVEGGnZ15dkiQje4qdY7Jgd3h82SZgK39RKCskPceGI9k99NKioVFzR8e9CeniWIvb1qKrVtk/Om80FinCkl0vssRSw2Nc3RDmM2o+nD/SZfe4/CODxwD8hhC+Q2dZG412Txd5KNyPCsYrYn5uOLclrDnwj9wGPx7Mqp998tbK63zIH3poee9xsChOvUjbVza466nTBv99cOCAnqMhFbhxzDw+em/yLPwmUmaQhc1VgU8yDDyuRSC4ESOmQWxnc8irxzAS3tnqRZaLs9LRmeUKhX1YBXRHDE1wVLABI5jvr5gMtnmb7Y91pdonzunwMwW6Fcoiw==</Modulus>
+                        <Exponent>AQAB</Exponent>
+                    </RSAKeyValue>
+                </KeyValue>
+            </KeyInfo>
+        </Signature>
+        <saml:Subject>
+            <saml:NameID>_2ec98314ec8d4e9d8c6d41db8beb37b7</saml:NameID>
+            <saml:SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer">
+                <saml:SubjectConfirmationData Address="https://www.billerpayments.com/ssoauth/saml/cust/soadotgcnpa" NotBefore="2020-05-02T15:17:14.927Z" NotOnOrAfter="2020-05-02T15:27:14.927Z" Recipient="https://www.billerpayments.com/ssoauth/saml/cust/soadotgcnpa" />
+            </saml:SubjectConfirmation>
+        </saml:Subject>
+        <saml:Conditions NotBefore="2020-05-02T15:17:14.927Z" NotOnOrAfter="2020-05-02T15:27:14.927Z">
+            <saml:AudienceRestriction>
+                <saml:Audience>https://www.billerpayments.com/ssoauth/saml/cust/soadotgcnpa</saml:Audience>
+            </saml:AudienceRestriction>
+        </saml:Conditions>
+        <saml:AuthnStatement AuthnInstant="2020-05-02T15:17:14.927Z" SessionIndex="5502d2520d4741199e5751fb64c12b0a">
+            <saml:AuthnContext>
+                <saml:AuthnContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:Password</saml:AuthnContextClassRef>
+            </saml:AuthnContext>
+        </saml:AuthnStatement>
+        <saml:AttributeStatement>
+            <saml:Attribute Name="mtype" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="mtype">
+                <saml:AttributeValue>1</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="atp" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Account Type">
+                <saml:AttributeValue>2</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="astp" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Account Sub-Type">
+                <saml:AttributeValue>20</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="lind" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Language Indicator">
+                <saml:AttributeValue>en_us</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="clid" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Channel ID">
+                <saml:AttributeValue>22</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="pkey" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Partner Key">
+                <saml:AttributeValue>7793404448</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="pcsid" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Partner customer session ID">
+                <saml:AttributeValue>23-23</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="currbal" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Current balance">
+                <saml:AttributeValue>100</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="acctno" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Customer Account Number">
+                <saml:AttributeValue>1</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="cdf001" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Invoice Number">
+                <saml:AttributeValue>23</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="fname" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="First Name">
+                <saml:AttributeValue>Aditya</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="lname" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Last Name">
+                <saml:AttributeValue>Test</saml:AttributeValue>
+            </saml:Attribute>
+            <saml:Attribute Name="pemail" NameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:unspecified" FriendlyName="Email address">
+                <saml:AttributeValue>aditya4pavan@gmail.com</saml:AttributeValue>
+            </saml:Attribute>
+        </saml:AttributeStatement>
+    </saml:Assertion>
+</samlp:Response>
