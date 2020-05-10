@@ -16,6 +16,7 @@ const config = [
         required: true,
         isGrid: true
     },
+    { field: 'displayName', title: 'Display Name', isGrid: true, type: 'text' },
     { field: 'statusName', title: 'Status Name', type: 'text', required: true, isGrid: true },
     { field: 'statusValue', title: 'Status Value', type: 'numeric', required: true, isGrid: true },
     { field: 'isSystem', title: 'Is System', type: 'checkbox', isGrid: true }

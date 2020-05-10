@@ -19,6 +19,8 @@ import SignUp from './Modules/Company/create';
 import Security from './Modules/Security';
 import Module from './Modules/Security/modules';
 import Roles from './Modules/Security/roles';
+//Template
+import TemplateView from './components/editor';
 
 let theme = createMuiTheme({
   typography: {
@@ -70,6 +72,7 @@ function App() {
           <Route path='/' render={() => <p>Not Found</p>} />
         </Switch>
       </Router>
+      <TemplateView title='Editor' />
     </ThemeProvider>
 
   );
