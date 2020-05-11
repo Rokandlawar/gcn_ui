@@ -79,10 +79,12 @@ export default function JsonForm({ columns = [], data = {}, show = false, isEdit
             </AppBar>
             <div className='col-12'>
                 <FormView ref={formView} data={form}>
-                    {columns.map((config, idx) => {
+                    {columns.filter(e => !e.isHide).map((config, idx) => {
                         switch (config.type) {
                             case 'text':
                                 return <Field.TextBox {...reqProps(config, idx)} />
+                            case 'textarea':
+                                return <Field.TextArea {...reqProps(config, idx)} />
                             case 'amount':
                                 return <Field.AmountText {...reqProps(config, idx)} />
                             case 'amount5':

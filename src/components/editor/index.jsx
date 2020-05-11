@@ -5,6 +5,7 @@ import Slide from '@material-ui/core/Slide';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
+import Axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     backdrop: {
@@ -33,11 +34,12 @@ export default function FullScreenDialog({ title = 'Not Provided', fields = grou
         setOpen(false);
     };
 
-    const handleSubmit = (data) => {
-        console.log(data)
-    }
 
     useEffect(() => {
+        const handleSubmit = (data) => {
+            handleMerge(data, groups, title)
+        }
+
         const messageHandler = (message) => {
             if (message.origin === process.env.REACT_APP_TEMPLATE_UI) {
                 if (message.data === 'Initialized' && frameView.current && frameView.current.contentWindow) {
@@ -51,7 +53,9 @@ export default function FullScreenDialog({ title = 'Not Provided', fields = grou
             }
         }
         window.addEventListener('message', messageHandler)
-    }, [fields])
+    }, [fields, title])
+
+
 
     return (
         <div>
@@ -138,19 +142,50 @@ const groups = [
 
 ]
 
-  // handleMerge = () => {
-  //     let sfdt = this.container.documentEditor.serialize();
-  //     Axios.post(this.container.serviceUrl + 'Download', JSON.stringify({ sfdt, groups }), {
-  //         headers: {
-  //             'Content-Type': 'application/json'
-  //         },
-  //         responseType: 'blob'
-  //     }).then(response => {
-  //         const url = window.URL.createObjectURL(new Blob([response.data]));
-  //         const link = document.createElement('a');
-  //         link.href = url;
-  //         link.setAttribute('download', 'Sample.docx'); //or any other extension
-  //         document.body.appendChild(link);
-  //         link.click();
-  //     })
-  // }
+// const handleMerge = (sfdt) => {
+//     Axios.post('http://localhost:6001/documenteditor/HTML', JSON.stringify({ sfdt, groups: [] }), {
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         responseType: 'blob'
+//     }).then(response => {
+//         const url = window.URL.createObjectURL(new Blob([response.data]));
+//         const link = document.createElement('a');
+//         link.href = url;
+//         link.setAttribute('download', 'Sample.docx'); //or any other extension
+//         document.body.appendChild(link);
+//         link.click();
+//     })
+// }
+
+// const handleMerge = (sfdt) => {
+//     Axios.post('http://localhost:6001/documenteditor/HTML', JSON.stringify({ sfdt, groups: [] }), {
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         responseType: 'blob'
+//     }).then(response => {
+//         var reader = new FileReader();
+//         const blob = new Blob([response.data]);
+//         reader.onload = () => {
+//             console.log(reader.result);
+//         }
+//         reader.readAsText(blob);
+//     })
+// }
+
+const handleMerge = (sfdt, groups, title) => {
+    Axios.post(`${process.env.REACT_APP_TEMPLATE_API}/documenteditor/PDF`, JSON.stringify({ sfdt, groups: [] }), {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        responseType: 'blob'
+    }).then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${title}.pdf`); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+    })
+}

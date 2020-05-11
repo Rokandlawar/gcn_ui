@@ -17,6 +17,7 @@ import ZipText from './ZipText';
 import AutoComplete from './AutoComplete';
 import DateTimePicker from './DateTimePicker';
 import SimpleExpansionPanel from './ExpansionPanel';
+import DocumentEditor from './DocumentEditor';
 
 class FormView extends Component {
 
@@ -161,6 +162,9 @@ const Field = {
     },
     DateTimePicker: function (props) {
         return <DateTimePicker ref={(e) => { props.parent[props.field] = e }} {...props} />
+    },
+    DocumentEditor: function (props) {
+        return <DocumentEditor ref={(e) => { props.parent[props.field] = e }} {...props} />
     },
     TimePicker: function (props) {
         return <TimePicker ref={(e) => { props.parent[props.field] = e }} {...props} />

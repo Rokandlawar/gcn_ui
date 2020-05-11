@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Login from './Modules/Authentication/login';
+import Loader from './components/loading';
 import Header from './components/header';
+import Alert from './components/alert';
 import PrivateRoute from './Modules/Authentication/private';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, ThemeProvider, responsiveFontSizes } from '@material-ui/core/styles';
+import DefaultSettings from './components/settings';
 
 //Routes Start Here 
 import Dashboard from './Modules/Dashboard';
@@ -19,8 +22,8 @@ import SignUp from './Modules/Company/create';
 import Security from './Modules/Security';
 import Module from './Modules/Security/modules';
 import Roles from './Modules/Security/roles';
-//Template
-import TemplateView from './components/editor';
+// Administration
+import Notices from './Modules/Administration/Notices';
 
 let theme = createMuiTheme({
   typography: {
@@ -47,14 +50,24 @@ let theme = createMuiTheme({
 theme = responsiveFontSizes(theme);
 
 function App() {
-
   const headerView = React.useRef(null);
+  const loaderView = React.useRef(null);
+  const alertView = React.useRef(null);
+  useEffect(() => {
+    if (loaderView && loaderView.current)
+      DefaultSettings.setLoader(loaderView.current);
+    if (alertView && alertView.current)
+      DefaultSettings.setAlert(alertView.current);
+  }, [loaderView, alertView])
+
 
   return (
 
     <ThemeProvider theme={theme}>
       <Router>
         <Header ref={headerView} />
+        <Loader ref={loaderView} />
+        <Alert ref={alertView} />
         <Switch>
           <Route exact path='/payment/:id' render={props => <PaymentView {...props} header={headerView} />} />
           <Route exact path='/' component={Dashboard} />
@@ -69,13 +82,16 @@ function App() {
           <PrivateRoute exact path='/security/permissions/:id?' component={Security} />
           <PrivateRoute exact path='/security/modules' component={Module} />
           <PrivateRoute exact path='/security/roles' component={Roles} />
+          <PrivateRoute exact path='/admin/notices/:id?' component={Notices} />
           <Route path='/' render={() => <p>Not Found</p>} />
         </Switch>
       </Router>
-      <TemplateView title='Editor' />
     </ThemeProvider>
 
   );
 }
 
 export default App;
+
+
+// Check Admin Routes in Server Side - Verify Token if Is Internal

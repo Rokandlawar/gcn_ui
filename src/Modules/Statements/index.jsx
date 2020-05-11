@@ -12,6 +12,7 @@ import BackIcon from '@material-ui/icons/ArrowBack';
 import TotalView from './total';
 import { GetAllItems } from '../../REST/statement';
 import { authenticationService } from '../../components/authorization';
+import AttachmentView from '../Widgets/Files';
 
 export default function Statement() {
     const { id } = useParams();
@@ -65,6 +66,7 @@ function StatementDetails() {
         <VehiclesView charges={items} handleRefresh={toggleRefresh} selected={selected} refresh={refresh} onSelect={handleSelect} />
         <EventsView editable={authenticationService.user() !== null} charges={items} handleRefresh={toggleRefresh} selected={selected} refresh={refresh} onSelect={handleSelect} />
         <SkuView charges={items} handleRefresh={toggleRefresh} selected={selected} refresh={refresh} onSelect={handleSelect} />
+        <AttachmentView module={4} entityId={id} />
         <div className='row'>
             <div className='col'>
                 <CommentsView display={authenticationService.user() !== null} handleRefresh={toggleRefresh} />

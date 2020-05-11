@@ -5,38 +5,24 @@ import { FormView, Field } from '../../components/form/Index';
 import Button from '@material-ui/core/Button'
 import BackIcon from '@material-ui/icons/ArrowBack';
 import { isEqual } from '../Statements/receipt';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Company from './company';
 import { authenticationService } from '../../components/authorization';
-import { makeStyles } from '@material-ui/core/styles';
 import CreateInvoice from '../Statements/create';
-
-const useStyles = makeStyles((theme) => ({
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff',
-    },
-}));
 
 export default function DetailsView({ refresh, onRefresh, options = { companies: [], skus: [], charges: [], cameras: [] } }) {
     const { id } = useParams();
     const [event, setEvent] = useState(null);
-    const [loading, setLoading] = useState(false);
     const [disable, setDisable] = useState(false);
     const [create, setCreate] = useState({ open: false, eventIds: [], groupSimilar: false })
     const [add, setAdd] = useState(false);
     const formView = useRef(null)
-    const classes = useStyles();
     const history = useHistory();
 
     useEffect(() => {
         if (id && id !== 0) {
-            setLoading(true)
             GetEvent(id).then(response => {
                 setEvent(response.data)
-                setLoading(false)
-            }).catch(ex => { setLoading(false) })
+            })
         }
     }, [id])
 
@@ -76,15 +62,13 @@ export default function DetailsView({ refresh, onRefresh, options = { companies:
             if (id !== 0 && id && id !== '0') {
                 UpdateEvent({ ...event, ...result }).then(response => {
                     setEvent(response.data)
-                    setLoading(false);
                     setDisable(false)
-                }).catch(ex => { setLoading(false) })
+                })
             }
             else {
                 AddEvent(result).then(response => {
                     history.push('/events/' + response.data.id)
-                    setLoading(false);
-                }).catch(ex => { setLoading(false) })
+                })
             }
         }
     }
@@ -105,7 +89,6 @@ export default function DetailsView({ refresh, onRefresh, options = { companies:
         <Company open={add} handleClose={handleClose} states={states} />
         <CreateInvoice open={create.open} handleClose={() => setCreate({ open: false, eventIds: [], groupSimilar: false })} eventIds={create.eventIds} groupSimilar={create.groupSimilar} onCreated={handleCreate} />
         <div className='col-12'>
-            <Backdrop className={classes.backdrop} open={loading} onClick={() => setLoading(false)}><CircularProgress color="inherit" /></Backdrop>
             <Button className='float-right' href='#events' variant="contained" color="secondary" startIcon={<BackIcon />}>Back</Button>
             <div className='clearfix' />
             <hr />

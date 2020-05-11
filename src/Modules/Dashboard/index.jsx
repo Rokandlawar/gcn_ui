@@ -61,7 +61,7 @@ const home = [
     { icon: faInfo, title: 'Help', isSecure: false, href: '/help' },
     { icon: faPhoneAlt, title: 'Contact Support', isSecure: false, href: 'https://apps.azdot.gov/contact_adot/' },
     { icon: faChartBar, title: 'Reports', isSecure: true, href: '/reports' },
-    { icon: faUserLock, title: 'Administration', isSecure: true, href: '/admin' }
+    { icon: faUserLock, title: 'Administration', isSecure: true, href: '/admin/notices' }
 ]
 
 const init = [

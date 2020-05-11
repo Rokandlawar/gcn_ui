@@ -2,7 +2,7 @@ import Axios from './base';
 
 export const GetAll = () => Axios().get('Application')
 
-export const GetApplication = (id) => Axios().get('Application/' + id)
+export const GetApplication = (id) => Axios('Application Loaded.').get('Application/' + id)
 
 export const GetOptions = () => {
     return Axios().get('Application/Options')

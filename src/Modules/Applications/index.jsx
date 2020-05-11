@@ -16,16 +16,10 @@ import Payment from './payment';
 import { authenticationService } from '../../components/authorization';
 import ModuleTemplate from '../../components/templates/module';
 import StatusTemplate from '../../components/templates/status';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles } from '@material-ui/core/styles';
+// Other Modules
+import NotesView from '../Widgets/Notes';
+import NoticeView from '../Widgets/Notices';
 
-const useStyles = makeStyles((theme) => ({
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff',
-    }
-}));
 
 export default function Application() {
 
@@ -62,16 +56,10 @@ export default function Application() {
 }
 
 function ApplicationView() {
-    const classes = useStyles();
     const [details, setDetails] = useState(null);
     const [access, setAccess] = useState([]);
     const { id } = useParams();
     const role = authenticationService.getRole();
-    const [loading, setLoading] = useState(true);
-
-    const handleError = () => {
-        setLoading(false);
-    }
 
     useEffect(() => {
         GetApplication(id).then(response => {
@@ -80,10 +68,9 @@ function ApplicationView() {
                     if (Array.isArray(resp.data)) {
                         setDetails(response.data);
                         setAccess(resp.data);
-                        setLoading(false)
                     }
-                }).catch(handleError)
-        }).catch(handleError)
+                })
+        })
     }, [id, role])
 
     const handleStatus = () => {
@@ -91,12 +78,13 @@ function ApplicationView() {
     }
 
     return <React.Fragment>
-        <Backdrop className={classes.backdrop} open={loading} onClick={() => setLoading(false)}><CircularProgress color="inherit" /></Backdrop>
         <StatusTemplate settings={access} handleClick={handleStatus}>
             <ModuleTemplate entity={details} settings={access} module={7} component={<DetailsView />} />
             <ModuleTemplate entity={details} settings={access} module={1} component={<Vehicles />} />
             <ModuleTemplate entity={details} settings={access} module={2} component={<Attachments />} />
             <ModuleTemplate entity={details} settings={access} module={6} component={<Payment />} />
+            <ModuleTemplate entity={details} settings={access} module={5} component={<NotesView module={1} entityId={id} />} />
+            <ModuleTemplate entity={details} settings={access} module={4} component={<NoticeView module={1} entityId={id} />} />
         </StatusTemplate>
 
     </React.Fragment>

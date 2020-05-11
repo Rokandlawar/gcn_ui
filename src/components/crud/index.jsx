@@ -15,7 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import { simpleDate, simpleDateTime } from '../dates';
 
-export default function CrudView({ url, columns = [], title, allowDelete = true, allowEdit = true, allowAdd = true, actions = [], urls = { get: null, add: null, list: null, update: null, delete: null }, id, pageCount = 10, refresh = false }) {
+export default function CrudView({ url, columns = [], title, allowDelete = true, allowEdit = true, allowAdd = true, actions = [], urls = { get: null, add: null, list: null, update: null, delete: null }, id, pageCount = 10, refresh = false, display = true }) {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -112,6 +112,9 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
 
 
     const allActions = events.filter(e => e.status).map(e => { delete e.status; return { ...e } }).concat(actions.map(e => { return { ...e } }))
+
+    if (!display)
+        return <div />
 
     return <div className='w-100'>
         <MaterialTable icons={tableIcons} columns={columns.filter(e => e.isGrid).map(e => {
