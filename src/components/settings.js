@@ -18,4 +18,11 @@ export default class DefaultSettings {
     static getAlert() {
         return this.alert;
     }
+
+    static showAlert(message, variant) {
+        if (this.alert !== null) {
+            this.alert.show(message, variant);
+        }
+    }
+
 }

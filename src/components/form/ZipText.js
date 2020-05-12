@@ -36,13 +36,16 @@ class ZipText extends Component {
     }
 
     valid = () => {
-        return true;
+        return this.state.value > 9999 && this.state.value < 100000;
     }
 
     getValue = () => {
         let valid = this.valid()
         if (valid) {
             return this.state.value
+        }
+        else {
+            this.setError('Zip is not Valid')
         }
     }
 
@@ -59,7 +62,7 @@ class ZipText extends Component {
             <div className={this.props.className}>
                 <FormControl margin='dense' error={this.state.error} required={this.props.required || false} disabled={this.props.disabled || false} fullWidth>
                     <InputLabel>{this.props.label}</InputLabel>
-                    <Input  value={this.state.value} onChange={this.handleChange} type='number' />
+                    <Input value={this.state.value} onChange={this.handleChange} type='number' />
                     <FormHelperText>{this.state.error && this.state.message}</FormHelperText>
                 </FormControl>
             </div>

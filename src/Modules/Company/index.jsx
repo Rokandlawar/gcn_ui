@@ -3,6 +3,8 @@ import ArrowIcon from '@material-ui/icons/ArrowRight';
 import { useHistory, useParams } from 'react-router-dom';
 import CRUDView from '../../components/crud';
 import Invoices from './invoice';
+import Address from './address';
+import Users from './users';
 
 export default function Company() {
     const { id } = useParams();
@@ -30,7 +32,11 @@ export default function Company() {
 }
 
 function CompanyDetails() {
+    const { id } = useParams();
+
     return <React.Fragment>
         <Invoices />
+        <Address entityId={id} />
+        <Users entityId={id} />
     </React.Fragment>
 }

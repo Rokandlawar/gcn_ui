@@ -17,13 +17,10 @@ import Company from './Modules/Company';
 import CameraEvent from './Modules/Camera';
 import { PaymentView } from './Modules/Statements/payment';
 import Search from './Modules/Camera/search';
-import SignUp from './Modules/Company/create';
-// Security
-import Security from './Modules/Security';
-import Module from './Modules/Security/modules';
-import Roles from './Modules/Security/roles';
-// Administration
-import Notices from './Modules/Administration/Notices';
+import SignUp from './Modules/Company/create'
+import Administration from './Modules/Administration';
+import Security from './Modules/Security/home';
+import Reset from './Modules/Authentication/reset';
 
 let theme = createMuiTheme({
   typography: {
@@ -75,14 +72,13 @@ function App() {
           <Route exact path='/signup' component={SignUp} />
           <Route exact path='/search' component={Search} />
           <Route exact path='/statement/:id' component={Statement} />
+          <Route exact path='/reset/:id' component={Reset} />
           <PrivateRoute exact path='/applications/:id?' component={Application} />
           <PrivateRoute exact path='/company/:id?' component={Company} />
           <PrivateRoute exact path='/events/:id?' component={CameraEvent} />
           <PrivateRoute exact path='/invoices/:id?' component={Statement} />
-          <PrivateRoute exact path='/security/permissions/:id?' component={Security} />
-          <PrivateRoute exact path='/security/modules' component={Module} />
-          <PrivateRoute exact path='/security/roles' component={Roles} />
-          <PrivateRoute exact path='/admin/notices/:id?' component={Notices} />
+          <Route path='/admin' component={Administration} />
+          <Route path='/security' component={Security} />
           <Route path='/' render={() => <p>Not Found</p>} />
         </Switch>
       </Router>

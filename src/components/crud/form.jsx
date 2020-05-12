@@ -89,6 +89,8 @@ export default function JsonForm({ columns = [], data = {}, show = false, isEdit
                                 return <Field.AmountText {...reqProps(config, idx)} />
                             case 'amount5':
                                 return <Field.AmountText {...reqProps(config, idx)} precision />
+                            case 'zip':
+                                return <Field.ZipText {...reqProps(config, idx)} />
                             case 'numeric':
                                 return <Field.TextBox {...reqProps(config, idx)} number />
                             case 'checkbox':

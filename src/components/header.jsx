@@ -131,7 +131,7 @@ function MenuAppBar(props, ref) {
                             aria-haspopup="true"
                             onClick={handleMenu}
                             color="inherit"
-                            disabled={hide}
+                            disabled={hide || authenticationService.user() === null}
                         >
                             <AccountCircle />
                         </IconButton>

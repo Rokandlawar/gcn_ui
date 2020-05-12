@@ -33,10 +33,11 @@ export default function Login() {
             <div className='offset-sm-3 offset-md-4 col-sm-6 col-md-4 my-auto'>
                 <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
                     <Paper elevation={2} className='p-3'>
+                        <h4 className='lead text-center'>Sign In</h4>
                         <FormView ref={formView}>
                             <Field.TextBox field='username' label='User Name' required />
                             <Field.TextBox field='password' label='Password' required password />
-                            <Button type='submit'  size='large' className='mt-2' fullWidth variant='outlined' color='secondary'>LOGIN</Button>
+                            <Button type='submit' size='large' className='mt-2' fullWidth variant='outlined' color='secondary'>LOGIN</Button>
                         </FormView>
                     </Paper>
                 </form>

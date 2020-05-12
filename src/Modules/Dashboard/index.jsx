@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBus, faBuilding, faFileInvoiceDollar, faCalendarAlt, faInfo, faPhoneAlt, faChartBar, faUserLock, faSignInAlt, faUserAlt, faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { faBus, faBuilding, faFileInvoiceDollar, faCalendarAlt, faInfo, faPhoneAlt, faChartBar, faUserLock, faSignInAlt, faUserAlt, faDollarSign, faFileWord, faCode, faList, faLockOpen, faUserCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 import { faWpforms } from '@fortawesome/free-brands-svg-icons';
 import { authenticationService } from '../../components/authorization';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,6 +27,21 @@ export default function Dashboard() {
         </div>
     </div>
 }
+
+export function AdminDashboard() {
+    if (authenticationService.user()) {
+        return <Template list={admin} title='Administration' />
+    }
+    return <p>Not Authorized</p>
+}
+
+export function SecurityDashboard() {
+    if (authenticationService.user()) {
+        return <Template list={security} title='Security' />
+    }
+    return <p>Not Authorized</p>
+}
+
 
 
 export function Template({ list = [], title }) {
@@ -61,7 +76,19 @@ const home = [
     { icon: faInfo, title: 'Help', isSecure: false, href: '/help' },
     { icon: faPhoneAlt, title: 'Contact Support', isSecure: false, href: 'https://apps.azdot.gov/contact_adot/' },
     { icon: faChartBar, title: 'Reports', isSecure: true, href: '/reports' },
-    { icon: faUserLock, title: 'Administration', isSecure: true, href: '/admin/notices' }
+    { icon: faUserLock, title: 'Administration', isSecure: true, href: '/admin' },
+    { icon: faShieldAlt, title: 'Security', isSecure: true, href: '/security' }
+]
+
+const admin = [
+    { icon: faFileWord, title: 'Notices', isSecure: true, href: '/admin/notices' },
+    { icon: faCode, title: 'Content Messages', isSecure: true, href: '/admin/content' },
+]
+
+const security = [
+    { icon: faLockOpen, title: 'Permissions', isSecure: true, href: '/security/permissions' },
+    { icon: faList, title: 'Modules', isSecure: true, href: '/security/modules' },
+    { icon: faUserCircle, title: 'Role Types', isSecure: true, href: '/security/roles' },
 ]
 
 const init = [

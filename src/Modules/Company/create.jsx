@@ -67,6 +67,7 @@ export default function SignUp() {
 
     return <div className='row'>
         <div className='offset-sm-3 col-sm-6'>
+            <h4 className='lead text-center'>Account Registration</h4>
             <Backdrop className={classes.backdrop} open={loading} onClick={() => setLoading(false)}><CircularProgress color="inherit" /></Backdrop>
             {activeStep === 0 && <FormView ref={formView1} data={entity.company} error={errors}>
                 <Field.TextBox field='name' label='Company Name' required />
@@ -79,7 +80,7 @@ export default function SignUp() {
                     <Field.ZipText className='col' field='zip' label='Zip' required />
                 </div>
                 <div className='row'>
-                    <Field.TextBox className='col' field='email' label='Email' />
+                    <Field.TextBox className='col' field='email' label='Email' required />
                     <Field.PhoneText className='col' field='phone' label='Phone Number' />
                 </div>
             </FormView>

@@ -12,26 +12,46 @@ const useStyles = makeStyles((theme) => ({
 
 function SimpleBackdrop(props, ref) {
     const classes = useStyles();
-    const [count, setCount] = useState(0);
+    const [open, setOpen] = useState(false);
 
     const handleClose = () => {
-        setCount(0)
+        setOpen(false)
     };
 
     useImperativeHandle(ref, () => ({
         add: () => {
-            setCount(count + 1);
+            Counter.addCount();
+            setOpen(true);
         },
         remove: () => {
-            setCount(count > 0 ? count - 1 : 0)
+            Counter.reduceCount();
+            if (Counter.getCount() === 0)
+                setOpen(false)
         }
     }))
 
     return (
-        <Backdrop className={classes.backdrop} open={count > 0} onClick={handleClose}>
+        <Backdrop className={classes.backdrop} open={open} onClick={handleClose}>
             <CircularProgress color="inherit" />
         </Backdrop>
     )
+}
+
+class Counter {
+    static count = 0;
+
+    static getCount() {
+        return this.count;
+    }
+
+    static addCount() {
+        this.count = this.count + 1;
+    }
+
+    static reduceCount() {
+        if (this.count > 0)
+            this.count = this.count - 1;
+    }
 }
 
 export default forwardRef(SimpleBackdrop);

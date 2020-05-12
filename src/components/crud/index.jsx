@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import MaterialTable from 'material-table'
-import Axios from 'axios';
+import Axios from '../../REST/base';
 import { tableIcons } from './icons';
 import { authenticationService } from '../authorization';
 import JsonForm from './form';
@@ -26,10 +26,10 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
 
     useEffect(() => {
         setLoading(true)
-        const headers = { 'Authorization': authenticationService.getToken() }
+        //  const headers = { 'Authorization': authenticationService.getToken() }
         const fetchData = async (url) => {
             try {
-                const { data } = await Axios.get(url, { headers: headers })
+                const { data } = await Axios().get(url)
                 if (Array.isArray(data)) {
                     setLoading(false)
                     setData(data)
@@ -57,10 +57,9 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
     }
 
     const handleDelete = (event, rowData) => {
-        const headers = { 'Authorization': authenticationService.getToken() }
         setConfirm({
             open: true, title: 'Please confirm delete action !', onSubmit: () => {
-                Axios.delete(urls.delete || url + '/' + rowData[id], { headers: headers }).then(handleSuccess).catch(handleFail)
+                Axios().delete(urls.delete || url + '/' + rowData[id]).then(handleSuccess).catch(handleFail)
             }, onCancel: () => {
                 setConfirm({ open: false, title: 'NA', onSubmit: null, onCancel: null })
             }
@@ -74,8 +73,7 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
     }
 
     const handleSuccess = (success) => {
-        const headers = { 'Authorization': authenticationService.getToken() }
-        Axios.get(urls.list || url, { headers: headers }).then(response => {
+        Axios().get(urls.list || url).then(response => {
             setData(response.data)
             setConfirm({ open: false, title: 'NA', onSubmit: null, onCancel: null })
             setRecord(null);
@@ -95,12 +93,11 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
     }
 
     const handleData = (result) => {
-        const headers = { 'Authorization': authenticationService.getToken() }
         if (!isEdit) {
-            Axios.post(urls.get || url, { ...result, ...getAuditColumns(isEdit) }, { headers: headers }).then(handleSuccess).catch(handleFail)
+            Axios().post(urls.get || url, { ...result, ...getAuditColumns(isEdit) }).then(handleSuccess).catch(handleFail)
         }
         else {
-            Axios.put(urls.get || url, { ...result, ...getAuditColumns(isEdit) }, { headers: headers }).then(handleSuccess).catch(handleFail)
+            Axios().put(urls.get || url, { ...result, ...getAuditColumns(isEdit) }).then(handleSuccess).catch(handleFail)
         }
     }
 
@@ -115,6 +112,14 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
 
     if (!display)
         return <div />
+
+    const getColumns = () => {
+        if (record !== null) {
+            return columns.filter(e => !e.noUpdate)
+        }
+        if (record === null)
+            return columns.filter(e => !e.noAdd)
+    }
 
     return <div className='w-100'>
         <MaterialTable icons={tableIcons} columns={columns.filter(e => e.isGrid).map(e => {
@@ -135,7 +140,7 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
                 }
             }
         })} title={title} data={data} isLoading={loading} options={{ pageSize: pageCount, actionsColumnIndex: -1 }} actions={allActions} />
-        <JsonForm onCancel={handleCancel} onSubmit={handleData} show={show} columns={columns} data={record} isEdit={isEdit} />
+        <JsonForm onCancel={handleCancel} onSubmit={handleData} show={show} columns={getColumns()} data={record} isEdit={isEdit} />
         <Dialog disableBackdropClick disableEscapeKeyDown maxWidth="xs" open={confirm.open}>
             <DialogTitle>{confirm.title}</DialogTitle>
             <DialogActions>
