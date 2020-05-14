@@ -28,7 +28,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-function Attachments({ editable = true, display = true }, ref) {
+function Attachments({ editable = true, display = true, entity }, ref) {
 
     const [error, setError] = useState(false)
     const [view, setView] = useState({ open: false, type: null, title: null })
@@ -138,7 +138,7 @@ function AttachmentView({ permitId, open, onClose, title = 'Attachments', editab
                 <ul className="list-group">
                     {files.map(e => {
                         return <li key={e.attachmentId} className='list-group-item'>{e.name}
-                            <IconButton onClick={() => downloadFile(e.attachmentId)}><DownloadIcon /></IconButton><IconButton onClick={() => deleteFile(e.attachmentId)}><DeleteIcon /></IconButton>
+                            <IconButton onClick={() => downloadFile(e.attachmentId)}><DownloadIcon /></IconButton><IconButton disabled={!editable} onClick={() => deleteFile(e.attachmentId)}><DeleteIcon /></IconButton>
                         </li>
                     })}
                 </ul>

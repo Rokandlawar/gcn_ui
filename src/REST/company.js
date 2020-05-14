@@ -1,5 +1,7 @@
 import Axios from './base';
 
+export const GetCompany = (id) => Axios().get('Company/' + id)
+
 export const GetCycles = () => Axios().get('InvoiceCycle/Options')
 
 export const GetSkus = () => Axios().get('Manifest/Options')

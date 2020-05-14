@@ -3,7 +3,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { tableIcons } from '../../components/crud/icons';
 import ArrowIcon from '@material-ui/icons/ArrowRightOutlined';
 import MaterialTable from 'material-table';
-import { GetAll, GetApplication, GetOptions, AddRecord } from '../../REST/application';
+import { GetAll, GetApplication, GetOptions, AddRecord, UpdateStatus } from '../../REST/application';
 import { GetPermissions } from '../../REST/security';
 import { useParams, useHistory } from 'react-router-dom';
 import { FormView, Field } from '../../components/form/Index';
@@ -13,6 +13,8 @@ import TermsView from './terms';
 import Vehicles from './vehicles';
 import Attachments from './attachments';
 import Payment from './payment';
+import Company from './company';
+import Insurance from './insurance';
 import { authenticationService } from '../../components/authorization';
 import ModuleTemplate from '../../components/templates/module';
 import StatusTemplate from '../../components/templates/status';
@@ -63,6 +65,7 @@ function ApplicationView() {
     const [access, setAccess] = useState([]);
     const { id } = useParams();
     const role = authenticationService.getRole();
+    const [refresh, setRefresh] = useState(false);
 
     useEffect(() => {
         GetApplication(id).then(response => {
@@ -74,10 +77,10 @@ function ApplicationView() {
                     }
                 })
         })
-    }, [id, role])
+    }, [id, role, refresh])
 
     const handleStatus = (status) => {
-        console.log(status);
+        UpdateStatus(id, status).then(() => setRefresh(!refresh))
     }
 
     const actions = [
@@ -88,10 +91,12 @@ function ApplicationView() {
     return <React.Fragment>
         <SpeedTemplate link='#applications' access={access} actions={actions} />
         <StatusTemplate settings={access} handleClick={handleStatus}>
+            <ModuleTemplate entity={details} settings={access} module={8} component={<Company />} />
             <ModuleTemplate entity={details} settings={access} module={7} component={<DetailsView />} />
             <ModuleTemplate entity={details} settings={access} module={1} component={<Vehicles />} />
             <ModuleTemplate entity={details} settings={access} module={2} component={<Attachments />} />
             <ModuleTemplate entity={details} settings={access} module={6} component={<Payment />} />
+            <ModuleTemplate entity={details} settings={access} module={3} component={<Insurance />} />
         </StatusTemplate>
     </React.Fragment>
 }

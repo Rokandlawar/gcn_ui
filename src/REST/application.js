@@ -10,10 +10,14 @@ export const AddRecord = (entity) => Axios().post('Application', entity)
 
 export const GetTerms = (id) => Axios().get('Application/Terms/' + id)
 
+export const UpdateInsurance = (entity, id) => Axios().post('Application/Insurance/' + id, entity)
+
+// Vehicles
 export const GetVehicles = (id) => Axios().get('Vehicle/' + id)
 
 export const ValidateVehicle = (id) => Axios().get('Vehicle/Validate/' + id)
 
+// Attachments 
 export const GetAttachmentTypes = (id) => Axios().get('Attachment/Applications/' + id)
 
 export const GetAttachments = (id, type) => Axios().get('Attachment/Applications/' + id + '/' + type)
@@ -28,6 +32,7 @@ export const AddAttachment = (entity) => Axios().post('Attachment', entity)
 
 export const DeleteAttachment = (id) => Axios().delete('Attachment/' + id)
 
+// Payment and Status
 export const ValidatePayment = (id) => Axios().get('Payment/Validate/1' + id)
 
 export const GetPrices = (id) => Axios().get('Application/Prices/' + id)

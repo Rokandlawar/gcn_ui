@@ -30,7 +30,7 @@ function PaymentTotal({ editable = true, display = true, charges = [], selected 
             </div>
             {selected.length > 0 && <React.Fragment>
                 <Button variant='outlined' onClick={handleDelete} className='text-danger'>Delete ({selected.length}) Items</Button>
-                <Button variant='outlined' color='secondary'>Pay ({selected.length}) Items</Button>
+                <Button disabled={selected.length === items.length} variant='outlined' color='secondary'>Pay ({selected.length}) Items</Button>
             </React.Fragment>}
             {display && <React.Fragment>
                 <Button className='float-right' disabled={!editable} onClick={handlePayment} variant='outlined'>Pay Now</Button>

@@ -22,7 +22,10 @@ const columns2 = [
     },
     { field: 'statusName', title: 'Status Name', isGrid: true, type: 'text', disabled: true },
     { field: 'fields', title: 'Fields', isGrid: false, type: 'multiselect', options: [] },
-    { field: 'validate', title: 'Require Validation', isGrid: false, type: 'checkbox' }
+    { field: 'validate', title: 'Require Validation', isGrid: false, type: 'checkbox' },
+    { field: 'alert', title: 'Show Alert', isGrid: false, type: 'checkbox' },
+    { field: 'confirm', title: 'Require Confirmation', isGrid: false, type: 'checkbox' },
+    { field: 'alertMessage', title: 'Display Message(If any)', isGrid: false, type: 'textarea' }
 
 ]
 
@@ -129,6 +132,7 @@ function AccessView({ groupId = 0, roles = [], groupName, statusId, onCancel, on
                         <div className='col'><p className='mt-3'>{role.roleName}</p></div>
                         <Field.CheckBox className='col pt-1' field='display' label='Allow Display' />
                         <Field.CheckBox className='col pt-1' field='editable' label='Allow Edit' />
+                        <Field.CheckBox className='col pt-1' field='minify' label='Allow Full' />
                     </Field.Row>
                 </FormView>
             })
