@@ -93,6 +93,8 @@ export default function JsonForm({ columns = [], data = {}, show = false, isEdit
                                 return <Field.ZipText {...reqProps(config, idx)} />
                             case 'numeric':
                                 return <Field.TextBox {...reqProps(config, idx)} number />
+                            case 'editor':
+                                return <Field.DocumentEditor {...reqProps(config, idx)} />
                             case 'checkbox':
                                 return <Field.CheckBox {...reqProps(config, idx)} />
                             case 'select':

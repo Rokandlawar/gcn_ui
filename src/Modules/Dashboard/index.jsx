@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBus, faBuilding, faFileInvoiceDollar, faCalendarAlt, faInfo, faPhoneAlt, faChartBar, faUserLock, faSignInAlt, faUserAlt, faDollarSign, faFileWord, faCode, faList, faLockOpen, faUserCircle, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBus, faBuilding, faFileInvoiceDollar, faCalendarAlt, faInfo, faPhoneAlt, faChartBar, faUserLock, faSignInAlt, faUserAlt, faDollarSign, faFileWord, faCode, faList, faLockOpen, faUserCircle, faShieldAlt, faBusAlt } from '@fortawesome/free-solid-svg-icons';
 import { faWpforms } from '@fortawesome/free-brands-svg-icons';
 import { authenticationService } from '../../components/authorization';
 import { makeStyles } from '@material-ui/core/styles';
@@ -83,6 +83,7 @@ const home = [
 const admin = [
     { icon: faFileWord, title: 'Notices', isSecure: true, href: '/admin/notices' },
     { icon: faCode, title: 'Content Messages', isSecure: true, href: '/admin/content' },
+    { icon: faBusAlt, title: 'Permit Types', isSecure: true, href: '/admin/permits' },
 ]
 
 const security = [

@@ -1,26 +1,17 @@
 import React, { useImperativeHandle, forwardRef, useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom'
-import { GetPrices, ValidatePayment, GetInvoice } from '../../REST/application';
+import { GetPrices, GetInvoice } from '../../REST/application';
 import Button from '@material-ui/core/Button';
 
 function Payment({ editable = true, display = true }, ref) {
     const [vehicles, setVehicles] = useState([]);
-    const [error, setError] = useState(false)
 
     const { id } = useParams();
     const history = useHistory();
 
     useImperativeHandle(ref, () => ({
         validate: () => {
-            return new Promise((resolve, error) => {
-                ValidatePayment(id).then(response => {
-                    setError(false);
-                    resolve()
-                }).catch(ex => {
-                    setError(true);
-                    error();
-                })
-            })
+            return Promise.resolve();
         },
         submit: () => {
             return Promise.resolve()
@@ -42,7 +33,6 @@ function Payment({ editable = true, display = true }, ref) {
 
 
     return <React.Fragment>
-        {error && <p className='text-danger'>Payment Not Complete</p>}
         <p className='text-center'>Payment Summary</p>
         <div className='row'>
             <div className='col-10'>

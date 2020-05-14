@@ -12,9 +12,11 @@ import DefaultSettings from './components/settings';
 //Routes Start Here 
 import Dashboard from './Modules/Dashboard';
 import Application from './Modules/Applications';
+import Permit from './Modules/Permits';
 import Statement from './Modules/Statements';
 import Company from './Modules/Company';
 import CameraEvent from './Modules/Camera';
+import HelpView from './Modules/HelpContext';
 import { PaymentView } from './Modules/Statements/payment';
 import Search from './Modules/Camera/search';
 import SignUp from './Modules/Company/create'
@@ -73,7 +75,9 @@ function App() {
           <Route exact path='/search' component={Search} />
           <Route exact path='/statement/:id' component={Statement} />
           <Route exact path='/reset/:id' component={Reset} />
+          <Route exact path='/help/:topic?/:article?/:story?' component={HelpView} />
           <PrivateRoute exact path='/applications/:id?' component={Application} />
+          <PrivateRoute exact path='/permits/:id?' component={Permit} />
           <PrivateRoute exact path='/company/:id?' component={Company} />
           <PrivateRoute exact path='/events/:id?' component={CameraEvent} />
           <PrivateRoute exact path='/invoices/:id?' component={Statement} />

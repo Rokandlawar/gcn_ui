@@ -15,7 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import { simpleDate, simpleDateTime } from '../dates';
 
-export default function CrudView({ url, columns = [], title, allowDelete = true, allowEdit = true, allowAdd = true, actions = [], urls = { get: null, add: null, list: null, update: null, delete: null }, id, pageCount = 10, refresh = false, display = true }) {
+export default function CrudView({ url, columns = [], title, allowDelete = true, allowEdit = true, allowAdd = true, actions = [], urls = { get: null, add: null, list: null, update: null, delete: null }, id, pageCount = 10, refresh = false, display = true, fresh = false }) {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -51,9 +51,18 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
     }
 
     const handleUpdate = (event, rowData) => {
-        setRecord(rowData);
-        setIsEdit(true);
-        setShow(true);
+        if (!fresh) {
+            setRecord(rowData);
+            setIsEdit(true);
+            setShow(true);
+        }
+        else {
+            Axios().get(urls.get || url + '/' + rowData[id]).then(response => {
+                setRecord(response.data);
+                setIsEdit(true);
+                setShow(true);
+            })
+        }
     }
 
     const handleDelete = (event, rowData) => {

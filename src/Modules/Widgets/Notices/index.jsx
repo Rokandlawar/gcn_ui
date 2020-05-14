@@ -5,7 +5,7 @@ import DocIcon from '@material-ui/icons/FileCopy';
 import PdfIcon from '@material-ui/icons/PictureAsPdf';
 import Axios from 'axios';
 
-function NoticeView({ module, entityId }, ref) {
+function NoticeView({ module, entityId, editable = true, display = true }, ref) {
     const [data, setData] = useState([]);
 
     useEffect(() => {

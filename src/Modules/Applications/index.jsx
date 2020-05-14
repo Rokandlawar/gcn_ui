@@ -16,7 +16,10 @@ import Payment from './payment';
 import { authenticationService } from '../../components/authorization';
 import ModuleTemplate from '../../components/templates/module';
 import StatusTemplate from '../../components/templates/status';
+import SpeedTemplate from '../../components/templates/speeddial';
 // Other Modules
+import CommentIcon from '@material-ui/icons/Comment';
+import NotesIcon from '@material-ui/icons/NoteAdd';
 import NotesView from '../Widgets/Notes';
 import NoticeView from '../Widgets/Notices';
 
@@ -52,7 +55,7 @@ export default function Application() {
     if (id)
         return <ApplicationView />
 
-    return <MaterialTable icons={tableIcons} columns={columns} title="Applications" data={data} actions={actions} options={{ actionsColumnIndex: -1, pageSize: 15 }} />
+    return <MaterialTable icons={tableIcons} columns={columns} title="Applications" data={data} actions={actions} options={{ actionsColumnIndex: -1, pageSize: 10 }} />
 }
 
 function ApplicationView() {
@@ -73,20 +76,23 @@ function ApplicationView() {
         })
     }, [id, role])
 
-    const handleStatus = () => {
-
+    const handleStatus = (status) => {
+        console.log(status);
     }
 
+    const actions = [
+        { name: 'Notes', icon: <CommentIcon />, module: 5, component: <NotesView module={1} entityId={id} /> },
+        { name: 'Notices', icon: <NotesIcon />, module: 4, component: <NoticeView module={1} entityId={id} /> }
+    ]
+
     return <React.Fragment>
+        <SpeedTemplate link='#applications' access={access} actions={actions} />
         <StatusTemplate settings={access} handleClick={handleStatus}>
             <ModuleTemplate entity={details} settings={access} module={7} component={<DetailsView />} />
             <ModuleTemplate entity={details} settings={access} module={1} component={<Vehicles />} />
             <ModuleTemplate entity={details} settings={access} module={2} component={<Attachments />} />
             <ModuleTemplate entity={details} settings={access} module={6} component={<Payment />} />
-            <ModuleTemplate entity={details} settings={access} module={5} component={<NotesView module={1} entityId={id} />} />
-            <ModuleTemplate entity={details} settings={access} module={4} component={<NoticeView module={1} entityId={id} />} />
         </StatusTemplate>
-
     </React.Fragment>
 }
 

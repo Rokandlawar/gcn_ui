@@ -16,7 +16,7 @@ export const authenticationService = {
         localStorage.setItem('user', username)
         setTimeout(() => {
             localStorage.clear()
-        }, 3600 * 60)
+        }, 3600 * 5 * 60)
     },
     getToken: () => {
         return localStorage.getItem('token')
