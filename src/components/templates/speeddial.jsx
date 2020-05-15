@@ -94,7 +94,7 @@ export default function SpeedTemplate({ access = [], actions = [], link = '#', e
                             </Typography>
                         </Toolbar>
                     </AppBar>
-                    {current.component && React.cloneElement(current.component || <p />, { ...getPermissions(current.module), entity })}
+                    {current.component && React.cloneElement(current.component || <p />, { ...getPermissions(current.module), entity, entityId: entity ? entity.id : null })}
                 </Dialog>
                 <Button variant='contained' href={link} color='secondary' startIcon={<ArrowBack />}>Back</Button>
                 <SpeedDial
