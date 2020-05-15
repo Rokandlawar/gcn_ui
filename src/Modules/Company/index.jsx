@@ -87,7 +87,7 @@ function CompanyDetails() {
     ]
     /*Need to Change templates below. Make it One*/
     return <React.Fragment>
-        <SpeedTemplate link='#company' access={access} actions={actions} />
+        <SpeedTemplate link='#company' entityId={id} entity={details} access={access} actions={actions} />
         <StatusTemplate settings={access} handleClick={handleStatus}>
             <ModuleTemplate entity={details} settings={access} module={1} component={<Details onRefresh={() => setRefresh(!refresh)} />} />
             <ModuleTemplate entity={details} settings={access} module={2} component={<Profile onRefresh={() => setRefresh(!refresh)} />} />

@@ -45,7 +45,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 
-export default function SpeedTemplate({ access = [], actions = [], link = '#', entity = null }) {
+export default function SpeedTemplate({ access = [], actions = [], link = '#', entity = null, entityId }) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [show, setShow] = React.useState(false);
@@ -94,7 +94,7 @@ export default function SpeedTemplate({ access = [], actions = [], link = '#', e
                             </Typography>
                         </Toolbar>
                     </AppBar>
-                    {current.component && React.cloneElement(current.component || <p />, { ...getPermissions(current.module), entity, entityId: entity ? entity.id : null })}
+                    {current.component && React.cloneElement(current.component || <p />, { ...getPermissions(current.module), entity, entityId })}
                 </Dialog>
                 <Button variant='contained' href={link} color='secondary' startIcon={<ArrowBack />}>Back</Button>
                 <SpeedDial
