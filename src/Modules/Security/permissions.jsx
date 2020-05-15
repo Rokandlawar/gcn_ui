@@ -29,6 +29,12 @@ const columns2 = [
 
 ]
 
+const columns3 = [
+    { label: 'Maximize', value: 1 },
+    { label: 'Minimize', value: 2 },
+    { label: 'Sidebar', value: 3 },
+]
+
 export default function Permissions() {
 
     const { id } = useParams();
@@ -129,10 +135,10 @@ function AccessView({ groupId = 0, roles = [], groupName, statusId, onCancel, on
             roles.map((role, idx) => {
                 return <FormView ref={refs.current[idx]} key={idx} data={data.find(e => e.roleId === role.roleId)}>
                     <Field.Row>
-                        <div className='col'><p className='mt-3'>{role.roleName}</p></div>
-                        <Field.CheckBox className='col pt-1' field='display' label='Allow Display' />
-                        <Field.CheckBox className='col pt-1' field='editable' label='Allow Edit' />
-                        <Field.CheckBox className='col pt-1' field='minify' label='Allow Full' />
+                        <div className='col'><p className='mt-4'>{role.roleName}</p></div>
+                        <Field.CheckBox className='col pt-3' field='display' label='Allow Display' />
+                        <Field.CheckBox className='col pt-3' field='editable' label='Allow Edit' />
+                        <Field.DropDown required className='col' field='displayType' label='Display Type' options={columns3} />
                     </Field.Row>
                 </FormView>
             })

@@ -100,7 +100,7 @@ function MessageDetails({ fields = [] }) {
         <Field.DropDown changeEvt={handleChange} label='Message Type' field='type' required options={types} />
         {data && (data.type !== 2 && data.type !== '2') && <Field.DropDown changeEvt={handleChange} label='Module' field='module' required options={modules} />}
         <Field.DocumentEditor label='Template Editor' field='template' fields={getFields()} />
-        {data && <MessageView setting={data.setting} title='Sample Title' />}
+        {data && <MessageView fullScreen setting={data.setting} title='Sample Title' />}
         <div className='row'>
             <div className='col-6'>
                 <Button fullWidth variant='outlined' onClick={handleSave} color='secondary'>Submit</Button>

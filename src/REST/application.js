@@ -15,6 +15,8 @@ export const UpdateInsurance = (entity, id) => Axios().post('Application/Insuran
 // Vehicles
 export const GetVehicles = (id) => Axios().get('Vehicle/' + id)
 
+export const GetVehicle = (application, id) => Axios().get('Vehicle/' + application + '/' + id)
+
 export const ValidateVehicle = (id) => Axios().get('Vehicle/Validate/' + id)
 
 // Attachments 

@@ -5,7 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { UpdateInsurance } from '../../REST/application';
+import { UpdateInsurance } from '../../REST/permits';
 
 const useStyles = makeStyles({
     root: {

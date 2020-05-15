@@ -2,7 +2,7 @@ import React, { forwardRef, useImperativeHandle, useEffect } from 'react';
 import TextField from '@material-ui/core/TextField';
 import moment from 'moment'
 
-function MaterialUIPickers({ label = 'NA', value, required = false }, ref) {
+function MaterialUIPickers({ label = 'NA', value, required = false, disabled = false }, ref) {
     const [selectedDate, setSelectedDate] = React.useState(moment(new Date()).format('YYYY-MM-DDThh:mm'));
 
     useEffect(() => {
@@ -14,7 +14,15 @@ function MaterialUIPickers({ label = 'NA', value, required = false }, ref) {
 
     useImperativeHandle(ref, () => ({
         getValue: () => {
-            return selectedDate
+            try {
+                return selectedDate
+            }
+            catch (ex) {
+                if (!required)
+                    return null
+                else
+                    return false
+            }
         },
         resetForm: () => {
 
@@ -30,6 +38,7 @@ function MaterialUIPickers({ label = 'NA', value, required = false }, ref) {
             type="datetime-local"
             value={selectedDate}
             onChange={handleDateChange}
+            disabled={disabled}
             required={required}
             InputLabelProps={{
                 shrink: true,

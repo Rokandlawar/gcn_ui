@@ -45,7 +45,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 
-export default function SpeedTemplate({ access = [], actions = [], link = '#' }) {
+export default function SpeedTemplate({ access = [], actions = [], link = '#', entity = null }) {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
     const [show, setShow] = React.useState(false);
@@ -71,7 +71,7 @@ export default function SpeedTemplate({ access = [], actions = [], link = '#' })
 
     const getPermissions = (module) => {
         const item = access.filter(e => !e.isStatus).find(e => e.module === module)
-        return { editable: item ? item.allowEdit : false, display: item ? item.allowDisplay : false }
+        return { editable: item ? item.allowEdit : false, display: item ? (item.allowDisplay && (item.displayType === 3 || item.displayType === '3')) : false }
     }
 
     const items = actions.filter(e => {
@@ -94,7 +94,7 @@ export default function SpeedTemplate({ access = [], actions = [], link = '#' })
                             </Typography>
                         </Toolbar>
                     </AppBar>
-                    {current.component && React.cloneElement(current.component || <p />, { ...getPermissions(current.module) })}
+                    {current.component && React.cloneElement(current.component || <p />, { ...getPermissions(current.module), entity })}
                 </Dialog>
                 <Button variant='contained' href={link} color='secondary' startIcon={<ArrowBack />}>Back</Button>
                 <SpeedDial

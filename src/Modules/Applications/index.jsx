@@ -19,12 +19,20 @@ import { authenticationService } from '../../components/authorization';
 import ModuleTemplate from '../../components/templates/module';
 import StatusTemplate from '../../components/templates/status';
 import SpeedTemplate from '../../components/templates/speeddial';
-// Other Modules
+// Icons
 import CommentIcon from '@material-ui/icons/Comment';
 import NotesIcon from '@material-ui/icons/NoteAdd';
+import CommuteIcon from '@material-ui/icons/Commute';
+import AttachmentIcon from '@material-ui/icons/Attachment';
+import BusinessIcon from '@material-ui/icons/Business';
+import InfoIcon from '@material-ui/icons/Info';
+import PayIcon from '@material-ui/icons/AttachMoney';
+import DescriptionIcon from '@material-ui/icons/Description';
+import ReceiptIcon from '@material-ui/icons/Receipt';
+// Other Modules
 import NotesView from '../Widgets/Notes';
 import NoticeView from '../Widgets/Notices';
-
+import ReceiptView from '../Widgets/Receipt';
 
 export default function Application() {
 
@@ -84,19 +92,29 @@ function ApplicationView() {
     }
 
     const actions = [
+        { name: 'Vehicles', icon: <CommuteIcon />, module: 1, component: <Vehicles /> },
+        { name: 'Attachments', icon: <AttachmentIcon />, module: 2, component: <Attachments /> },
+        { name: 'Company', icon: <BusinessIcon />, module: 8, component: <Company /> },
+        { name: 'Insurance', icon: <InfoIcon />, module: 3, component: <Insurance /> },
+        { name: 'Payment', icon: <PayIcon />, module: 6, component: <Payment /> },
+        { name: 'Details', icon: <DescriptionIcon />, module: 7, component: <DetailsView /> },
         { name: 'Notes', icon: <CommentIcon />, module: 5, component: <NotesView module={1} entityId={id} /> },
-        { name: 'Notices', icon: <NotesIcon />, module: 4, component: <NoticeView module={1} entityId={id} /> }
+        { name: 'Notices', icon: <NotesIcon />, module: 4, component: <NoticeView module={1} entityId={id} /> },
+        { name: 'Receipt', icon: <ReceiptIcon />, module: 9, component: <ReceiptView module={1} entityId={id} /> },
     ]
-
+    /*Need to Change templates below. Make it One*/
     return <React.Fragment>
         <SpeedTemplate link='#applications' access={access} actions={actions} />
         <StatusTemplate settings={access} handleClick={handleStatus}>
-            <ModuleTemplate entity={details} settings={access} module={8} component={<Company />} />
             <ModuleTemplate entity={details} settings={access} module={7} component={<DetailsView />} />
+            <ModuleTemplate entity={details} settings={access} module={8} component={<Company />} />
             <ModuleTemplate entity={details} settings={access} module={1} component={<Vehicles />} />
             <ModuleTemplate entity={details} settings={access} module={2} component={<Attachments />} />
             <ModuleTemplate entity={details} settings={access} module={6} component={<Payment />} />
             <ModuleTemplate entity={details} settings={access} module={3} component={<Insurance />} />
+            <ModuleTemplate entity={details} settings={access} module={5} component={<NotesView module={1} entityId={id} />} />
+            <ModuleTemplate entity={details} settings={access} module={4} component={<NoticeView module={1} entityId={id} />} />
+            <ModuleTemplate entity={details} settings={access} module={9} component={<ReceiptView module={1} entityId={id} />} />
         </StatusTemplate>
     </React.Fragment>
 }

@@ -24,7 +24,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function JsonForm({ columns = [], data = {}, show = false, isEdit = false, onSubmit, onCancel }) {
+export default function JsonForm({ columns = [], data = {}, show = false, isEdit = false, isView = false, onSubmit, onCancel }) {
     const classes = useStyles();
     const formView = React.useRef(null);
 
@@ -36,7 +36,7 @@ export default function JsonForm({ columns = [], data = {}, show = false, isEdit
             onSubmit({ ...data, ...result })
         }
     }
-
+    
     const handleChange = (idx) => {
         if (columns[idx] && Array.isArray(columns[idx].effects)) {
             let result = formView.current.getCurrentResult();
@@ -70,17 +70,21 @@ export default function JsonForm({ columns = [], data = {}, show = false, isEdit
                         <CloseIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        {!isEdit ? 'Add Record' : 'Update Record'}
+                        {isView ? 'View Record' : (!isEdit ? 'Add Record' : 'Update Record')}
                     </Typography>
-                    <IconButton color='inherit' onClick={handleSave}>
+                    <IconButton disabled={isView} color='inherit' onClick={handleSave}>
                         <SaveIcon />
                     </IconButton>
                 </Toolbar>
             </AppBar>
             <div className='col-12'>
-                <FormView ref={formView} data={form}>
+                <FormView ref={formView} disabled={isView} data={form}>
                     {columns.filter(e => !e.isHide).map((config, idx) => {
                         switch (config.type) {
+                            case 'date':
+                                return <Field.DatePicker {...reqProps(config, idx)} />
+                            case 'datetimme':
+                                return <Field.DateTimePicker {...reqProps(config, idx)} />
                             case 'text':
                                 return <Field.TextBox {...reqProps(config, idx)} />
                             case 'textarea':

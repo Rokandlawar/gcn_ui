@@ -27,11 +27,11 @@ function ModuleTemplate({ module = 0, settings = [], component, entity = null },
         return <div />
 
     const editable = current.allowEdit
-    
-    if (current.allowDisplay && current.allowFull)
+
+    if (current.allowDisplay && (current.displayType === 1 || current.displayType === '1'))
         return React.cloneElement(component, { ref: childView, editable: editable, display: true, entity: entity })
 
-    if (current.allowDisplay && !current.allowFull)
+    if (current.allowDisplay && (current.displayType === 2 || current.displayType === '2'))
         return (
             <ExpansionPanel>
                 <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

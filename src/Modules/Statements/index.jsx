@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import ArrowIcon from '@material-ui/icons/ArrowRight';
 import { useHistory, useParams } from 'react-router-dom';
 import CRUDView from '../../components/crud';
@@ -10,7 +10,7 @@ import EventsView from './events';
 import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBack';
 import TotalView from './total';
-import { GetAllItems } from '../../REST/statement';
+import { GetAllItems, GetInvoice } from '../../REST/statement';
 import { authenticationService } from '../../components/authorization';
 import AttachmentView from '../Widgets/Files';
 
@@ -31,12 +31,14 @@ export default function Statement() {
     const url = process.env.REACT_APP_API_URL + '/statement';
 
     if (id)
-        return <StatementDetails />
+        return <StatementCharges />
     return <CRUDView title='Invoices' url={url} allowAdd={false} allowDelete={false} allowEdit={false} actions={actions} columns={config} />
 
 }
 
-function StatementDetails() {
+
+
+function StatementCharges({ editable = true, display = true }, ref) {
     const [items, setItems] = useState([]);
     const [refresh, setRefresh] = useState(true);
     const [selected, setSelected] = useState([]);
@@ -66,7 +68,6 @@ function StatementDetails() {
         <VehiclesView charges={items} handleRefresh={toggleRefresh} selected={selected} refresh={refresh} onSelect={handleSelect} />
         <EventsView editable={authenticationService.user() !== null} charges={items} handleRefresh={toggleRefresh} selected={selected} refresh={refresh} onSelect={handleSelect} />
         <SkuView charges={items} handleRefresh={toggleRefresh} selected={selected} refresh={refresh} onSelect={handleSelect} />
-        <AttachmentView module={4} entityId={id} />
         <div className='row'>
             <div className='col'>
                 <CommentsView display={authenticationService.user() !== null} handleRefresh={toggleRefresh} />
@@ -76,5 +77,6 @@ function StatementDetails() {
             </div>
         </div>
     </React.Fragment>
-
 }
+
+const StatementChargeView = forwardRef(StatementCharges);

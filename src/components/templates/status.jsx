@@ -72,7 +72,7 @@ function DialogStatus({ items = [], onClick }) {
                 {items.map((e, i) => (
                     <React.Fragment key={i}>
                         <Divider />
-                        <ListItem button onClick={() => handleClick(e.isValidate, e.module, e)}>
+                        <ListItem disabled={!e.allowEdit} button onClick={() => handleClick(e.isValidate, e.module, e)}>
                             <ListItemText primary={e.name} />
                         </ListItem>
                         <Divider />
@@ -91,7 +91,7 @@ function StatusView({ items = [], onClick }) {
         return <DialogStatus items={items} onClick={onClick} />
     return <div>
         {items.map((e, i) => {
-            return <Button variant='outlined' color='secondary' key={i} onClick={() => onClick(e.isValidate, e.module, e)} className='float-right'>{e.name}</Button>
+            return <Button disabled={!e.allowEdit} variant='outlined' color='secondary' key={i} onClick={() => onClick(e.isValidate, e.module, e)} className='float-right'>{e.name}</Button>
         })}
         <div className='clearfix' />
     </div>

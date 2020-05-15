@@ -31,11 +31,11 @@ export default function RecordReceipt({ onBack }) {
     }
 
     const options = [
-        { label: 'Cash', value: 1 },
-        { label: 'Check', value: 2 }
+        { label: 'Cash', value: 2 },
+        { label: 'Check', value: 3 }
     ]
 
- 
+
 
     if (complete)
         return <h3>Payment Complete. Please Close Browser Window</h3>

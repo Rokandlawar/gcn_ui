@@ -7,6 +7,7 @@ import JsonForm from './form';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowIcon from '@material-ui/icons/ArrowRight';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
 import Button from '@material-ui/core/Button';
@@ -15,13 +16,14 @@ import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 import { simpleDate, simpleDateTime } from '../dates';
 
-export default function CrudView({ url, columns = [], title, allowDelete = true, allowEdit = true, allowAdd = true, actions = [], urls = { get: null, add: null, list: null, update: null, delete: null }, id, pageCount = 10, refresh = false, display = true, fresh = false }) {
+export default function CrudView({ url, columns = [], title, allowDelete = true, allowEdit = true, allowAdd = true, actions = [], urls = { get: null, add: null, list: null, update: null, delete: null }, id, pageCount = 10, refresh = false, display = true, fresh = false, allowView = false }) {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [show, setShow] = useState(false);
     const [record, setRecord] = useState(null)
     const [isEdit, setIsEdit] = useState(false)
+    const [isView, setIsView] = useState(false)
     const [confirm, setConfirm] = useState({ open: false, title: 'NA', onSubmit: null, onCancel: null })
 
     useEffect(() => {
@@ -65,6 +67,21 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
         }
     }
 
+    const handleView = (event, rowData) => {
+        if (!fresh) {
+            setRecord(rowData);
+            setIsView(true)
+            setShow(true);
+        }
+        else {
+            Axios().get(urls.get || url + '/' + rowData[id]).then(response => {
+                setRecord(response.data);
+                setIsView(true);
+                setShow(true);
+            })
+        }
+    }
+
     const handleDelete = (event, rowData) => {
         setConfirm({
             open: true, title: 'Please confirm delete action !', onSubmit: () => {
@@ -95,6 +112,7 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
         setRecord(null);
         setShow(false);
         setIsEdit(false);
+        setIsView(false);
     }
 
     const handleFail = (error) => {
@@ -113,9 +131,9 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
     const events = [
         { icon: AddIcon, tooltip: 'New Record', isFreeAction: true, onClick: handleAdd, status: allowAdd },
         { icon: EditIcon, tooltip: 'Edit Record', onClick: handleUpdate, status: allowEdit },
-        { icon: DeleteIcon, tooltip: 'Delete Record', onClick: handleDelete, status: allowDelete }
+        { icon: DeleteIcon, tooltip: 'Delete Record', onClick: handleDelete, status: allowDelete },
+        { icon: ArrowIcon, tooltip: 'View Record', onClick: handleView, status: allowView }
     ];
-
 
     const allActions = events.filter(e => e.status).map(e => { delete e.status; return { ...e } }).concat(actions.map(e => { return { ...e } }))
 
@@ -149,7 +167,7 @@ export default function CrudView({ url, columns = [], title, allowDelete = true,
                 }
             }
         })} title={title} data={data} isLoading={loading} options={{ pageSize: pageCount, actionsColumnIndex: -1 }} actions={allActions} />
-        <JsonForm onCancel={handleCancel} onSubmit={handleData} show={show} columns={getColumns()} data={record} isEdit={isEdit} />
+        <JsonForm onCancel={handleCancel} onSubmit={handleData} show={show} columns={getColumns()} data={record} isEdit={isEdit} isView={isView} />
         <Dialog disableBackdropClick disableEscapeKeyDown maxWidth="xs" open={confirm.open}>
             <DialogTitle>{confirm.title}</DialogTitle>
             <DialogActions>

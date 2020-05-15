@@ -12,6 +12,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from 'axios';
 import ReactHtmlParser from 'react-html-parser';
+import Axios from '../REST/base';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -31,17 +32,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function MessageView({ setting, title, fullScreen = false }) {
+export default function MessageView({ setting, title, fullScreen = false, link = null }) {
     if (fullScreen)
-        return <FullScreenMessage setting={setting} title={title} />
+        return <FullScreenMessage setting={setting} title={title} link={link} />
     return <FullMessage setting={setting} />
 }
 
-function FullScreenMessage({ setting = 'NA', title = 'Please Provide a Title' }) {
+function FullScreenMessage({ setting = 'NA', title = 'Please Provide a Title', link = null }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const frameView = useRef(null);
     const [loading, setLoading] = useState(false);
+    const url = link || `${process.env.REACT_APP_API_URL}/Content/Message/HTML/${setting}`
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -49,6 +51,9 @@ function FullScreenMessage({ setting = 'NA', title = 'Please Provide a Title' })
     };
 
     const handleClose = () => {
+        axios.get(url).then(resp => {
+            Axios().post('Content/Email', { content: resp.data, email: 'aditya4pavan@gmail.com', subject: title })
+        })
         setOpen(false);
     };
 
@@ -69,7 +74,7 @@ function FullScreenMessage({ setting = 'NA', title = 'Please Provide a Title' })
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <iframe onLoad={() => setLoading(false)} id='template-editor' src={`${process.env.REACT_APP_API_URL}/Content/Message/HTML/${setting}`} ref={frameView}
+                <iframe onLoad={() => setLoading(false)} id='template-editor' src={url} ref={frameView}
                     frameBorder="0"
                     marginHeight="0"
                     marginWidth="0"

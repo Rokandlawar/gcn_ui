@@ -6,7 +6,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 
-function MaterialUIPickers({ label = 'NA', value = new Date(), required = false, className }, ref) {
+function MaterialUIPickers({ label = 'NA', value = new Date(), required = false, className, disabled = false }, ref) {
 
     const [selectedDate, setSelectedDate] = React.useState(value);
 
@@ -16,7 +16,15 @@ function MaterialUIPickers({ label = 'NA', value = new Date(), required = false,
 
     useImperativeHandle(ref, () => ({
         getValue: () => {
-            return selectedDate.toISOString()
+            try {
+                return selectedDate.toISOString()
+            }
+            catch (ex) {
+                if (!required)
+                    return null
+                else
+                    return false
+            }
         },
         resetForm: () => {
 
@@ -39,6 +47,7 @@ function MaterialUIPickers({ label = 'NA', value = new Date(), required = false,
                     value={selectedDate}
                     onChange={handleDateChange}
                     required={required}
+                    disabled={disabled}
                     fullWidth
                 />
             </MuiPickersUtilsProvider>
